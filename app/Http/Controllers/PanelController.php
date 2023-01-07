@@ -13,6 +13,7 @@ use ProtoneMedia\Splade\SpladeTable;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use ProtoneMedia\Splade\Facades\Splade;
 
 class PanelController extends Controller
 {
@@ -52,14 +53,16 @@ class PanelController extends Controller
             ->withQueryString();
 
         return view('panel.index', [
-            'forums' => SpladeTable::for($forums)
-                ->withGlobalSearch()
-                ->column('title', searchable: true, sortable: true)
-                ->column('body', searchable: true)
-                ->column("KategoryForum.name", 'Kategory Forum', searchable: true)
-                ->column("KategoryForum.sub_kategory.name", 'Sub kategory Forum', searchable: true)
-                ->column('action')
-                ->selectFilter('KategoryForum.name', $kategory),
+            'forums' => Splade::onLazy(
+                fn () => SpladeTable::for($forums)
+                    ->withGlobalSearch()
+                    ->column('title', searchable: true, sortable: true)
+                    ->column('body', searchable: true)
+                    ->column("KategoryForum.name", 'Kategory Forum', searchable: true)
+                    ->column("KategoryForum.sub_kategory.name", 'Sub kategory Forum', searchable: true)
+                    ->column('action')
+                    ->selectFilter('KategoryForum.name', $kategory),
+            ),
         ]);
     }
 }
