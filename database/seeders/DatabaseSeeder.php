@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             'sub_kategory_id' => 3,
         ]);
 
-        Forum::factory(5)->create();
+        Forum::factory(10)->create();
 
         // for ($i = 1; $i <= 5; $i++) {
         //     Forum::create([
