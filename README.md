@@ -1,4 +1,4 @@
-## Demo
+## Demo - onProgress
 Don't forget php artisan migrate --seed
 - Username : user@example.com
 - Password : password
