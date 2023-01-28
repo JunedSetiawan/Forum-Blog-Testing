@@ -14,6 +14,8 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use ProtoneMedia\Splade\Facades\Splade;
+use Illuminate\Pagination\Paginator;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class PanelController extends Controller
 {
@@ -44,25 +46,23 @@ class PanelController extends Controller
         // $data = Forum::with('kategoryForum')->join('kategory_forums', 'kategory_forums.id', 'forums.kategory_forum_id'); 
 
         $kategory = KategoryForum::pluck('name', 'name')->toArray();
+
         $forums = QueryBuilder::for(Forum::class)
             ->allowedIncludes('KategoryForum', 'sub_kategory')
             ->with(['KategoryForum', 'KategoryForum.sub_kategory'])
             ->allowedSorts('title')
             ->allowedFilters(['title', 'body', $globalSearch, 'KategoryForum.name', 'KategoryForum.sub_kategory.name'])
-            ->paginate()
-            ->withQueryString();
+            ->paginate();
 
         return view('panel.index', [
-            'forums' => Splade::onLazy(
-                fn () => SpladeTable::for($forums)
-                    ->withGlobalSearch()
-                    ->column('title', searchable: true, sortable: true)
-                    ->column('body', searchable: true)
-                    ->column("KategoryForum.name", 'Kategory Forum', searchable: true)
-                    ->column("KategoryForum.sub_kategory.name", 'Sub kategory Forum', searchable: true)
-                    ->column('action')
-                    ->selectFilter('KategoryForum.name', $kategory),
-            ),
+            'forums' => SpladeTable::for($forums)
+                ->withGlobalSearch()
+                ->column('title', searchable: true, sortable: true)
+                ->column('body', searchable: true)
+                ->column("KategoryForum.name", 'Kategory Forum', searchable: true)
+                ->column("KategoryForum.sub_kategory.name", 'Sub kategory Forum', searchable: true)
+                ->column('action')
+                ->selectFilter('KategoryForum.name', $kategory),
         ]);
     }
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('body');
             $table->foreignId('user_id');
             $table->foreignId('kategory_forum_id');
+            $table->foreignId('subkategory_forum_id');
             $table->timestamps();
         });
     }

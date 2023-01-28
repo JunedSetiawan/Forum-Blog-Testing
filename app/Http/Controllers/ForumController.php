@@ -17,7 +17,7 @@ class ForumController extends Controller
      */
     public function index()
     {
-        $forums = Splade::onLazy(fn () => Forum::query()->with('kategoryForum', 'user')->where('user_id', Auth::user()->id)->latest()->paginate());
+        $forums = Forum::query()->with(['KategoryForum', 'user'])->where('user_id', Auth::user()->id)->latest()->paginate();
         $forums_count = Forum::get()->count();
         return view('forum.index', compact('forums', 'forums_count'));
     }
@@ -45,18 +45,20 @@ class ForumController extends Controller
             'title' => 'required|max:200',
             'body' => 'required',
             'categories' => 'required',
+            'subKategory' => 'required'
         ]);
 
         Forum::create([
             'title' => $request->title,
             'body' => $request->body,
             'kategory_forum_id' => $request->categories,
+            'subkategory_forum_id' => $request->subKategory,
             'user_id' => Auth::user()->id,
         ]);
 
         Splade::toast('Your forum has been created!')->autoDismiss(5);
 
-        return redirect()->route('panel.index');
+        return redirect()->route('forum.index');
     }
 
     /**
@@ -78,9 +80,10 @@ class ForumController extends Controller
      */
     public function edit(Forum $forum)
     {
-        $categories = KategoryForum::get();
-
-        return view('forum.edit', compact('categories', 'forum'));
+        $categoriSelected = $forum->KategoryForum->id;
+        $categories = KategoryForum::query()->pluck('name', 'id')->toArray();
+        // dd($categoriSelected);
+        return view('forum.edit', compact('categories', 'categoriSelected', 'forum'));
     }
 
     /**

@@ -18,6 +18,6 @@ class KategoryForum extends Model
 
     public function sub_kategory()
     {
-        return $this->belongsTo(SubKategory::class);
+        return $this->hasMany(SubKategory::class);
     }
 }

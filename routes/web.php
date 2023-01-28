@@ -3,6 +3,7 @@
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubKategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,7 @@ Route::middleware('splade')->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         Route::resource('/forum', ForumController::class);
         Route::get('/panel', PanelController::class)->name('panel.index');
+        Route::get('/loadSub/{kategoryId}', [SubKategoryController::class, 'loadSubKategory'])->name('load.sub');
     });
 
     require __DIR__ . '/auth.php';

@@ -9,5 +9,10 @@ class SubKategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'kategory_id'];
+
+    public function KategoryForum()
+    {
+        return $this->belongsTo(KategoryForum::class);
+    }
 }

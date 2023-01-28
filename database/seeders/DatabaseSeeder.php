@@ -28,13 +28,16 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password')
         ]);
         SubKategory::create([
-            'name' => "web programming"
+            'name' => "web programming",
+            'kategory_id' => 1
         ]);
         SubKategory::create([
-            'name' => "web development"
+            'name' => "web development",
+            'kategory_id' => 1
         ]);
         SubKategory::create([
-            'name' => "lifestyle"
+            'name' => "lifestyle",
+            'kategory_id' => 2
         ]);
 
         KategoryForum::create([
@@ -42,15 +45,11 @@ class DatabaseSeeder extends Seeder
             'sub_kategory_id' => 1,
         ]);
         KategoryForum::create([
-            'name' => 'technology',
-            'sub_kategory_id' => 2,
-        ]);
-        KategoryForum::create([
             'name' => 'healty',
             'sub_kategory_id' => 3,
         ]);
 
-        Forum::factory(5)->create();
+        // Forum::factory(10)->create();
 
         // for ($i = 1; $i <= 5; $i++) {
         //     Forum::create([

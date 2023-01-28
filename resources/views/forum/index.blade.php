@@ -2,9 +2,7 @@
     <div class="max-w-full mx-auto">
         <div class="bg-white overflow-hidden shadow-sm">
             <div class="p-6 bg-white">
-                <x-splade-lazy>
                     <h2 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-2xl dark:text-white">My List Forum ({{ $forums_count }})</h2>
-                    <x-slot:placeholder> The items are loading... </x-slot:placeholder>
                     <Link href="{{ route('forum.create') }}" class=" py-2 px-4 text-sm font-medium text-gray-900 bg-transparent border-b border-t border-r border-l border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
                         Create a New Forum
                     </Link>
@@ -17,7 +15,7 @@
                                 </a>
                                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($forum->body,50) }}</p>
                                 <div class="flex justify-between mb-4">
-                                <p class="font-normal text-gray-700 dark:text-gray-400">Category : {{ $forum->kategoryForum->name }}</p>
+                                <p class="font-normal text-gray-700 dark:text-gray-400">Category : {{ $forum->KategoryForum->name }}</p>
                                 <button type="button" class="my-0 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded text-gray-900 focus:outline-none border border-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-200 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700">
                                     Disukai
                                     <span class="inline-flex justify-center items-center ml-2 w-4 h-4 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
@@ -39,7 +37,6 @@
                         </div>
                         @endforeach
                     </div>
-                </x-splade-lazy>
             </div>
         </div>
     </div>
