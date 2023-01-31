@@ -19,7 +19,7 @@ class Forum extends Model
     }
     public function SubKategoryForum(): BelongsTo
     {
-        return $this->belongsTo(SubKategoryForum::class);
+        return $this->belongsTo(SubKategory::class);
     }
     // // in your model
     // public function kategory($query, $value) {

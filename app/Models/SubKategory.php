@@ -15,4 +15,8 @@ class SubKategory extends Model
     {
         return $this->belongsTo(KategoryForum::class);
     }
+    public function forum()
+    {
+        return $this->hasMany(Forum::class);
+    }
 }

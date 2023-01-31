@@ -38,6 +38,9 @@ Route::middleware('splade')->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         Route::resource('/forum', ForumController::class);
         Route::get('/panel', PanelController::class)->name('panel.index');
+        Route::get('get', [SubKategoryController::class, 'get'])->name('forum.get');
+        Route::post('/get/store', [SubKategoryController::class, 'store'])->name('get.store');
+        Route::get('/loadData/{subkategoryId}', [SubKategoryController::class, 'loadData'])->name('load.data');
         Route::get('/loadSub/{kategoryId}', [SubKategoryController::class, 'loadSubKategory'])->name('load.sub');
     });
 
